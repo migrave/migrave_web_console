@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <title>MigrAVE Control Panel</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- IXP CSS -->
+    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!--ROS scripts -->
+    <script src="assets/js/roslib.min.js"></script>
+    <script src="assets/js/eventemitter2.min.js"></script>
+    <script src="assets/js/qtrobot-1.0.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+            <!-- header -->
+        <div class="app-header">
+            <img src="./assets/img/IXP-Logos_black_vector.svg" alt="IXP logo">
+            <div class="app-header--title">
+                MigrAVE Control Panel
+            </div>
+        </div>
+
+        <div class="row no-gutters">
+            <!-- Participant ID -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">Participant Info</h4>
+                        <form>
+                            <div class="from-group row">
+                                <label for="inputId" class="col-3 col-form-label">Participant ID</label>
+                                <div class="col-9">
+                                    <input type="text" id="inputId" placeholder="Participant ID">
+                                </div>
+                            </div>
+
+                            <div class="from-group row">
+                                <label for="inputName" class="col-3 col-form-label">Name</label>
+                                <div class="col-9">
+                                    <input type="text" id="inputName" placeholder="Participant Name">
+                                </div>
+                            </div>
+                            
+                            <div class="from-group row">
+                                <label for="inputAge" class="col-3 col-form-label">Age</label>
+                                <div class="col-9">
+                                    <input type="number" id="inputAge" placeholder="Age">
+                                </div>
+                            </div>
+
+                            <div class="from-group row">
+                                <label for="inputGender" class="col-3 col-form-label">Gender</label>
+                                <div class="col-9">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="radioGender" id="male" value="male>
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="radioGender" id="female" value="female">
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="radioGender" id="other" value="other">
+                                        <label class="form-check-label" for="other">Other</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="from-group row">
+                                <label for="inputMotherTongue" class="col-3 col-form-label">Mother tongue</label>
+                                <div class="col-9">
+                                    <select class="form-select" id="inputMotherTongue">
+                                        <option selected>Choose the mother tongue</option>
+                                        <option value="German">German</option>
+                                        <option value="English">English</option>
+                                        <option value="Other">Other</option>
+                                      </select>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">Control</h4>
+                        <div class="row">
+                            <div class="col">
+                                <button id="home" type="button" class="btn btn-primary">Home</button>
+                                <p>Reset robot position</p>
+                            </div>
+                            <div class="col">
+                                <div class ="circleBase" id="rotateMode">   
+                                    <button id="left" class="btn btn-primary"><span class="fa fa-arrow-left"></span></button>
+                                    <button id="right" class="btn btn-primary"><span class="fa fa-arrow-right"></span></button>
+                                    <button id="up" class="btn btn-primary"><span class="fa fa-arrow-up"></span></button>
+                                    <button id="down" class="btn btn-primary"><span class="fa fa-arrow-down"></span></button>
+                                </div>
+                                <p>Adjust head pose</p>
+                                <div>
+                                    <label for="head_yaw">
+                                        <strong>Head yaw (left-right) </strong>
+                                    </label>
+                                    <input type="range" min="-85" max="85" class="custom-range" id="head_yaw">
+                                    <label for="head_pitch">
+                                        <strong>Head pitch (up-down) </strong>
+                                    </label>
+                                    <input type="range" min="-13" max="13" class="custom-range" id="head_pitch">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagnostics -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">Diagnostics</h4>
+                        <p class="card-text">Connection status: <span id="status"></span></p>
+                        <p class="card-text">Data recorder: <span id="data_recorder"></span></p>
+                        <p class="card-text">Cameras (external):<span id="Cameras"></span></p>
+                        <p class="card-text">Game performance: <span id="gaem_performance"></span></p>
+                        <p class="card-text">Game status:<spain id="game_status"></spain></p>
+                        <p class="card-text">Position:<spain id="position"></spain></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIDEO -->
+        <div class="row no-gutters">
+            <div class="col">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <h4 class="card-title">Video Streams</h4>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <figure class="figure">
+                                    <img src="http://192.168.1.106:8080/stream?topic=/camera/color/image_raw" class="p-1 bg-dark" alt="" id="video_color" />
+                                    <figcaption class="figure-caption text-center">Color camera</figcaption>
+                                </figure>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <figure class="figure">
+                                    <img src="http://192.168.1.106:8080/stream?topic=/camera/depth/image_raw" class="p-1 bg-dark" alt="" id="video_depth" />
+                                    <figcaption class="figure-caption text-center">Depth camera</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    <div>
+
+        
+    <!-- Main script-->
+        <script src="assets/js/main.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
