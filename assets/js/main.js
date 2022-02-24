@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("connecting to QTrobot (please wait...)");
     qtrobot = new QTrobot({
         url : url,
-        connection: function(){            
+        connection: function(){
             console.log("connected to " + url);
             //qtrobot.talk_text('Hello! my name is QT!', function(){
             //    qtrobot.show_emotion('QT/happy');
-            //});  
+            //});
         },
         error: function(error){
             console.log(error);
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Status
 qtrobot = new QTrobot({
     url : url,
-    connection: function(){            
+    connection: function(){
         console.log("connected to " + url);
         document.getElementById("status").innerHTML = "connected";
     },
@@ -58,7 +58,7 @@ qtrobot.subscribe("/migrave_data_recording/is_record", "std_msgs/Bool", function
     document.getElementById("data_recorder").innerHTML = m.data;
 })
 
-// Data recorder 
+// Data recorder
 qtrobot.subscribe(topicJointState, "sensor_msgs/JointState", function(m){
     position = m.position;
     document.getElementById("position").innerHTML = [position[0].toFixed(2), position[1].toFixed(2)];
@@ -86,7 +86,7 @@ function moveHead(action) {
     if (action == "down"){
         headYaw  = Math.min(headYaw + 5, 25)
     }
-    
+
     qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headPitch, headYaw]});
 }
 
@@ -114,7 +114,7 @@ sliderHeadPitch.addEventListener("input", function()
     {
         headPitch = Number(sliderHeadPitch.value);
         headYaw = Number(sliderHeadYaw.value);
-        qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headYaw, headPitch]}); 
+        qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headYaw, headPitch]});
         console.log("Move head")
         console.log("Pitch: " + headPitch)
     }
@@ -124,7 +124,7 @@ sliderHeadYaw.addEventListener("input", function()
     {
         headPitch = Number(sliderHeadPitch.value);
         headYaw = Number(sliderHeadYaw.value);
-        qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headYaw, headPitch]}); 
+        qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headYaw, headPitch]});
         console.log("Move head")
         console.log("Yaw: " + headYaw)
     }
@@ -138,7 +138,7 @@ buttonHome.addEventListener("click", function(){
     qtrobot.subscribe(topicJointState, "sensor_msgs/JointState", function(m){
         position = m.position;
         document.getElementById("position").innerHTML = [position[0].toFixed(2), position[1].toFixed(2)];
-    });
+    }, true);
     sliderHeadPitch.value = 0;
     sliderHeadYaw.value = 0;
 }, false);
@@ -148,24 +148,26 @@ qtrobot.subscribe(topicJointState, "sensor_msgs/JointState", function(m){
     position = m.position;
     document.getElementById("position").innerHTML = [position[0].toFixed(2), position[1].toFixed(2)];
     console.log("update jointstate")
-});
+}, true);
 
-
-var listener = new ROSLIB.Topic({
-    ros : qtrobot.ros,
-    name : topicEmotionGameStatus,
-    messageType : 'std_msgs/String'
-  });
-
-listener.subscribe(function(message) {
-    console.log('Received message on ' + listener.name + ': ' + message.data);
-  });
 
 qtrobot.subscribe(topicEmotionGameStatus, "std_msgs/String", function(m){
     position = m.position;
     document.getElementById("game_status").innerHTML = m.data;
     console.log("update game status")
-});
+}, true);
+
+// test
+//var listener = new ROSLIB.Topic({
+//    ros : qtrobot.ros,
+//    name : topicEmotionGameStatus,
+//    messageType : 'std_msgs/String'
+//  });
+//
+//listener.subscribe(function(message) {
+//    console.log('Received message on ' + listener.name + ': ' + message.data);
+//  });
+
 
 
 
