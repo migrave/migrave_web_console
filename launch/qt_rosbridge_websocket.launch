@@ -1,5 +1,5 @@
 <launch> 
-   <include ns="x260" file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"> 
+   <include ns="QTPC" file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"> 
       <arg name="port" value="9091" /> 
    </include> 
    <node pkg="web_video_server" type="web_video_server" name="web_video_server">
