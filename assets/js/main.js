@@ -232,7 +232,12 @@ qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", func
 
 // Game activity/task
 qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
-    document.getElementById("activity_id").innerHTML = m.game_activity.game_activity_id;
+    if(m.game_activity.game_activity_id == "")
+    {
+        document.getElementById("activity_id").innerHTML = "idle";
+    }else{
+        document.getElementById("activity_id").innerHTML = m.game_activity.game_activity_id;
+    }
     console.log("update game activity id")
 }, true);
 
