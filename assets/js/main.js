@@ -61,9 +61,9 @@ buttonConfirm.addEventListener("click", function()
         var valueParticipantID = document.getElementById("inputID").value
         var valueName = document.getElementById("inputName").value
         var valueAge = document.getElementById("inputAge").value
-        var valueGenderMale = document.getElementById("male").check
-        var valueGenderFemale = document.getElementById("female").check
-        var valueGenderOther = document.getElementById("other").check
+        var valueGenderMale = document.getElementById("male").checked
+        var valueGenderFemale = document.getElementById("female").checked
+        var valueGenderOther = document.getElementById("other").checked
         var valueGender = ""
         var valueMotherTongue = document.getElementById("inputMotherTongue").value
 
@@ -81,10 +81,10 @@ buttonConfirm.addEventListener("click", function()
             valueGender = "other";
         }
 
-        // set age default to 0
+        // set age default to -1 (unknown)
         if(valueAge == "")
         {
-            valueAge = 0;
+            valueAge = -1
         }
 
         var gamePerformance =
