@@ -1,5 +1,5 @@
-// var url = prompt("Please enter QTrobot rosbridge url:", "ws://192.168.1.106:9091");
-var url = "ws://192.168.1.106:9091";
+//var url = prompt("Please enter QTrobot rosbridge url:", "ws://192.168.100.2:9091");
+var url = "ws://192.168.100.2:9091";
 url = (url == "") ? 'ws://127.0.0.1:9091' : url;
 var qtrobot = {};
 var buttonHome = {};
@@ -16,6 +16,7 @@ var action = "";
 var topicHead = "/qt_robot/head_position/command";
 var topicEmotionGameStatus = "/migrave_game_emotions/status"
 var topicImitationGameStatus = "/migrave_game_imitation/status"
+var topicGamePerformance = "/migrave/game_performance"
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log("connecting to QTrobot (please wait...)");
@@ -54,60 +55,132 @@ qtrobot = new QTrobot({
     }
 });
 
-qtrobot.subscribe("/migrave_data_recording/is_record", "std_msgs/Bool", function(m){
-    document.getElementById("data_recorder").innerHTML = m.data;
-})
+buttonConfirm = document.getElementById("confirm");
+buttonConfirm.addEventListener("click", function()
+    {
+        var valueParticipantID = document.getElementById("inputID").value
+        var valueName = document.getElementById("inputName").value
+        var valueAge = document.getElementById("inputAge").value
+        var valueGenderMale = document.getElementById("male").check
+        var valueGenderFemale = document.getElementById("female").check
+        var valueGenderOther = document.getElementById("other").check
+        var valueGender = ""
+        var valueMotherTongue = document.getElementById("inputMotherTongue").value
+
+        // find gender
+        if(valueGenderMale == true)
+        {
+            valueGender = "male";
+        }
+        if(valueGenderFemale == true)
+        {
+            valueGender = "female";
+        }
+        if(valueGenderOther == true)
+        {
+            valueGender = "other";
+        }
+
+        // set age default to 0
+        if(valueAge == "")
+        {
+            valueAge = 0;
+        }
+
+        var gamePerformance =
+            {
+                stamp:
+                {
+                    // Date.now() 13 digits (first 10 -> secs)
+                    // secs: 10 digits
+                    // nsecs: 9 digits
+                    secs: Math.floor(Date.now()/1000),
+                    nsecs: (Date.now()%1000)*1000000,
+                },
+                person:
+                {
+                    id: valueParticipantID,
+                    name: valueName,
+                    age: parseInt(valueAge),  // has to be int
+                    gender: valueGender,
+                    mother_tongue: valueMotherTongue,
+                },
+                game_activity:
+                {
+                    game_id: "",
+                    game_activity_id: "",
+                    difficulty_level: 0,
+                },
+                answer_correctness: -1,
+            };
+        console.log("receive participant info")
+        qtrobot.publish(topicGamePerformance, "migrave_ros_msgs/GamePerformance", gamePerformance);
+        qtrobot.talk_text("Information received. Let's start!", function(){
+            qtrobot.show_emotion('QT/happy');
+        });
+    }
+)
 
 // Data recorder
+qtrobot.subscribe("/migrave_data_recording/is_record", "std_msgs/Bool", function(m){
+    if (m.data == true)
+    {
+        document.getElementById("data_recorder").innerHTML = "recording";
+    } else {
+        document.getElementById("data_recorder").innerHTML = "not recording";
+    }
+})
+
+// Head position
 qtrobot.subscribe(topicJointState, "sensor_msgs/JointState", function(m){
     position = m.position;
     document.getElementById("position").innerHTML = [position[0].toFixed(2), position[1].toFixed(2)];
 });
 
 
-
 // Head pose
-function moveHead(action) {
-    qtrobot.subscribe(topicJointState, "sensor_msgs/JointState", function(m){
-        position = m.position;
-        document.getElementById("position").innerHTML = [position[0].toFixed(2), position[1].toFixed(2)];
-        headPitch = position[0]
-        headYaw = position[1]
-    });
-    if (action == "left"){
-        headPitch = Math.min(headPitch + 5, 90);
-    }
-    if (action == "right"){
-        headPitch = Math.max(headPitch - 5, -90)
-    }
-    if (action == "up"){
-        headYaw = Math.max(headYaw - 5, -15)
-    }
-    if (action == "down"){
-        headYaw  = Math.min(headYaw + 5, 25)
-    }
+//function moveHead(action) {
+//    qtrobot.subscribe(topicJointState, "sensor_msgs/JointState", function(m){
+//        position = m.position;
+//        document.getElementById("position").innerHTML = [position[0].toFixed(2), position[1].toFixed(2)];
+//        headPitch = position[0]
+//        headYaw = position[1]
+//    });
+//    if (action == "left"){
+//        headPitch = Math.min(headPitch + 5, 90);
+//    }
+//    if (action == "right"){
+//        headPitch = Math.max(headPitch - 5, -90)
+//    }
+//    if (action == "up"){
+//        headYaw = Math.max(headYaw - 5, -15)
+//    }
+//    if (action == "down"){
+//        headYaw  = Math.min(headYaw + 5, 25)
+//    }
+//
+//    qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headPitch, headYaw]});
+//}
+//
+//
+//buttonLeft = document.getElementById("left");
+//buttonLeft.addEventListener("click", function(){
+//    moveHead("left");
+//});
+//buttonRight = document.getElementById("right");
+//buttonRight.addEventListener("click", function(){
+//    moveHead("right");
+//});
+//buttonUp = document.getElementById("up");
+//buttonUp.addEventListener("click", function(){
+//    moveHead("up");
+//});
+//buttonDown = document.getElementById("down");
+//buttonDown.addEventListener("click", function(){
+//    moveHead("down");
+//});
 
-    qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headPitch, headYaw]});
-}
-
-
-buttonLeft = document.getElementById("left");
-buttonLeft.addEventListener("click", function(){
-    moveHead("left");
-});
-buttonRight = document.getElementById("right");
-buttonRight.addEventListener("click", function(){
-    moveHead("right");
-});
-buttonUp = document.getElementById("up");
-buttonUp.addEventListener("click", function(){
-    moveHead("up");
-});
-buttonDown = document.getElementById("down");
-buttonDown.addEventListener("click", function(){
-    moveHead("down");
-});
-
+// Head pose control via two sliders
 sliderHeadPitch = document.getElementById("head_pitch");
 sliderHeadYaw = document.getElementById("head_yaw");
 sliderHeadPitch.addEventListener("input", function()
@@ -115,7 +188,7 @@ sliderHeadPitch.addEventListener("input", function()
         headPitch = Number(sliderHeadPitch.value);
         headYaw = Number(sliderHeadYaw.value);
         qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headYaw, headPitch]});
-        console.log("Move head")
+        console.log("move head")
         console.log("Pitch: " + headPitch)
     }
 )
@@ -125,7 +198,7 @@ sliderHeadYaw.addEventListener("input", function()
         headPitch = Number(sliderHeadPitch.value);
         headYaw = Number(sliderHeadYaw.value);
         qtrobot.publish(topicHead, "std_msgs/Float64MultiArray", {data: [headYaw, headPitch]});
-        console.log("Move head")
+        console.log("move head")
         console.log("Yaw: " + headYaw)
     }
 )
@@ -144,19 +217,41 @@ buttonHome.addEventListener("click", function(){
 }, false);
 
 
-qtrobot.subscribe(topicJointState, "sensor_msgs/JointState", function(m){
-    position = m.position;
-    document.getElementById("position").innerHTML = [position[0].toFixed(2), position[1].toFixed(2)];
-    console.log("update jointstate")
+//qtrobot.subscribe(topicJointState, "sensor_msgs/JointState", function(m){
+//    position = m.position;
+//    document.getElementById("position").innerHTML = [position[0].toFixed(2), position[1].toFixed(2)];
+//    console.log("update jointstate")
+//}, true);
+
+
+// Game id
+qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
+    document.getElementById("game_id").innerHTML = m.game_activity.game_id;
+    console.log("update game id")
 }, true);
 
+// Game activity/task
+qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
+    document.getElementById("activity_id").innerHTML = m.game_activity.game_activity_id;
+    console.log("update game activity id")
+}, true);
 
+// Game status
 qtrobot.subscribe(topicEmotionGameStatus, "std_msgs/String", function(m){
-    position = m.position;
     document.getElementById("game_status").innerHTML = m.data;
     console.log("update game status")
 }, true);
 
+qtrobot.subscribe(topicImitationGameStatus, "std_msgs/String", function(m){
+    document.getElementById("game_status").innerHTML = m.data;
+    console.log("update game status")
+}, true);
+
+// Participant ID
+qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
+    document.getElementById("participant_id").innerHTML = m.person.id;
+    console.log("update participant id")
+}, true);
 // test
 //var listener = new ROSLIB.Topic({
 //    ros : qtrobot.ros,

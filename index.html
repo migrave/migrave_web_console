@@ -39,28 +39,28 @@
                     <div class="card-body">
                         <h4 class="card-title">Participant Info</h4>
                         <form>
-                            <div class="from-group row card-text">
-                                <label for="inputId" class="col-3 col-form-label">Participant ID</label>
+                            <div class="form-group row card-text">
+                                <label for="inputID" class="col-3 col-form-label">Participant ID</label>
                                 <div class="col-9">
-                                    <input type="text" id="inputId" placeholder="Participant ID">
+                                    <input type="text" id="inputID" placeholder="Participant ID">
                                 </div>
                             </div>
 
-                            <div class="from-group row">
+                            <div class="form-group row">
                                 <label for="inputName" class="col-3 col-form-label">Name</label>
                                 <div class="col-9">
                                     <input type="text" id="inputName" placeholder="Participant Name">
                                 </div>
                             </div>
                             
-                            <div class="from-group row">
+                            <div class="form-group row">
                                 <label for="inputAge" class="col-3 col-form-label">Age</label>
                                 <div class="col-9">
                                     <input type="number" id="inputAge" placeholder="Age">
                                 </div>
                             </div>
 
-                            <div class="from-group row">
+                            <div class="form-group row">
                                 <label for="inputGender" class="col-3 col-form-label">Gender</label>
                                 <div class="col-9">
                                     <div class="form-check form-check-inline">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="from-group row">
+                            <div class="form-group row">
                                 <label for="inputMotherTongue" class="col-3 col-form-label">Mother tongue</label>
                                 <div class="col-9">
                                     <select class="form-select" id="inputMotherTongue">
@@ -89,8 +89,8 @@
                                       </select>
                                 </div>
                             </div>
-                           <div class="from-group row text-right display: flex; justify-content: flex-end">
-                              <button id="confirm" type="submit" class="btn btn-primary py-0">Confirm</button> 
+                           <div class="form-group row">
+                              <button id="confirm" type="button" class="btn btn-primary">Confirm</button> 
                            </div> 
 
 
@@ -110,12 +110,6 @@
                                 <p>Reset robot position</p>
                             </div>
                             <div class="col">
-                                <div class ="circleBase" id="rotateMode">   
-                                    <button id="left" class="btn btn-primary"><span class="fa fa-arrow-left"></span></button>
-                                    <button id="right" class="btn btn-primary"><span class="fa fa-arrow-right"></span></button>
-                                    <button id="up" class="btn btn-primary"><span class="fa fa-arrow-up"></span></button>
-                                    <button id="down" class="btn btn-primary"><span class="fa fa-arrow-down"></span></button>
-                                </div>
                                 <p>Adjust head pose</p>
                                 <div>
                                     <label for="head_yaw">
@@ -139,11 +133,12 @@
                     <div class="card-body">
                         <h4 class="card-title">Diagnostics</h4>
                         <p class="card-text">Connection status: <span id="status"></span></p>
+                        <p class="card-text">Head position: <spain id="position"></spain></p>
                         <p class="card-text">Data recorder: <span id="data_recorder"></span></p>
-                        <p class="card-text">Cameras (external):<span id="Cameras"></span></p>
-                        <p class="card-text">Game performance: <span id="gaem_performance"></span></p>
-                        <p class="card-text">Game status:<spain id="game_status"></spain></p>
-                        <p class="card-text">Position:<spain id="position"></spain></p>
+                        <p class="card-text">Game ID:<span id="game_id"></span></p>
+                        <p class="card-text">Game activity: <span id="activity_id"></span></p>
+                        <p class="card-text">Game status: <spain id="game_status"></spain></p>
+                        <p class="card-text">Participant ID: <spain id="participant_id"></spain></p>
                     </div>
                 </div>
             </div>
@@ -158,14 +153,28 @@
                         <div class="row">
                             <div class="col d-flex justify-content-center">
                                 <figure class="figure">
-                                    <img src="http://192.168.1.106:8080/stream?topic=/camera/color/image_raw" class="p-1 bg-dark" alt="" id="video_color" />
+                                    <img src="http://localhost:8080/stream?topic=/camera/color/image_raw" class="p-1 bg-dark" alt="" id="video_color" />
                                     <figcaption class="figure-caption text-center">Color camera</figcaption>
                                 </figure>
                             </div>
                             <div class="col d-flex justify-content-center">
                                 <figure class="figure">
-                                    <img src="http://192.168.1.106:8080/stream?topic=/camera/depth/image_raw" class="p-1 bg-dark" alt="" id="video_depth" />
+                                    <img src="http://localhost:8080/stream?topic=/camera/aligned_depth_to_color/image_raw" class="p-1 bg-dark" alt="" id="video_depth" />
                                     <figcaption class="figure-caption text-center">Depth camera</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <figure class="figure">
+                                    <img src="http://localhost:8080/stream?topic=/camera1/usb_cam1/image_raw" class="p-1 bg-dark" alt="" id="video_usb1" />
+                                    <figcaption class="figure-caption text-center">Left camera</figcaption>
+                                </figure>
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <figure class="figure">
+                                    <img src="http://localhost:8080/stream?topic=/camera2/usb_cam2/image_raw" class="p-1 bg-dark" alt="" id="video_usb2" />
+                                    <figcaption class="figure-caption text-center">Right camera</figcaption>
                                 </figure>
                             </div>
                         </div>
