@@ -223,6 +223,19 @@ buttonHome.addEventListener("click", function(){
 //    console.log("update jointstate")
 //}, true);
 
+// start recording
+var buttonStartRecording = document.getElementById("start_recording")
+buttonStartRecording.addEventListener("click", function(){
+    qtrobot.publish("/migrave_data_recording/is_record", "std_msgs/Bool", {data: true});
+    console.log("start recording");
+}, false);
+
+// stop recording
+var buttonStopRecording = document.getElementById("stop_recording")
+buttonStopRecording.addEventListener("click", function(){
+    qtrobot.publish("/migrave_data_recording/is_record", "std_msgs/Bool", {data: false});
+    console.log("stop recording");
+}, false);
 
 // Game id
 qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
