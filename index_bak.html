@@ -30,7 +30,7 @@
     <div class="container-fluid">
             <!-- header -->
         <div class="app-header">
-            <img src="./assets/img/MigrAVE.jpeg" alt="MigrAVE logo">
+            <img src="./assets/img/IXP-Logos_black_vector.svg" alt="IXP logo">
             <div class="app-header--title">
                 MigrAVE Control Panel
             </div>
@@ -144,6 +144,7 @@
                         <p class="card-text">Head position: <spain id="position"></spain></p>
                         <p class="card-text">Data recorder: <span id="data_recorder">not recording</span></p>
                         <p class="card-text">Game ID: <span id="game_id">idle</span></p>
+                        <p class="card-text">Game activity: <span id="activity_id">idle</span></p>
                         <p class="card-text">Game status: <spain id="game_status">idle</spain></p>
                         <p class="card-text">Participant ID: <spain id="participant_id">not set</spain></p>
                     </div>
@@ -166,15 +167,8 @@
                             </div>
                             <div class="col d-flex justify-content-center">
                                 <figure class="figure">
-                                    <img src="http://localhost:8080/stream?topic=/camera/depth/image_raw" class="p-1 bg-dark" alt="" id="video_depth" />
+                                    <img src="http://localhost:8080/stream?topic=/camera/aligned_depth_to_color/image_raw" class="p-1 bg-dark" alt="" id="video_depth" />
                                     <figcaption class="figure-caption text-center">Depth camera</figcaption>
-                                </figure>
-                            </div>
-                            <div class="col d-flex justify-content-center">
-                                <figure class="figure">
-                                    <img src="http://localhost:8080/stream?topic=/migrave_perception/openface_ros/debug_image
-" class="p-1 bg-dark" alt="" id="video_usb1" />
-                                    <figcaption class="figure-caption text-center">Face features</figcaption>
                                 </figure>
                             </div>
                         </div>

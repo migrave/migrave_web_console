@@ -237,6 +237,20 @@ buttonStopRecording.addEventListener("click", function(){
     console.log("stop recording");
 }, false);
 
+// facial features detection start
+var buttonStartDetection = document.getElementById("start_detecting")
+buttonStartRecording.addEventListener("click", function(){
+    qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_start"});
+    console.log("start recording");
+}, false);
+
+// facial features detection stop
+var buttonStopDetection = document.getElementById("stop_detecting")
+buttonStartRecording.addEventListener("click", function(){
+    qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
+    console.log("start recording");
+}, false);
+
 // Game id
 qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
     document.getElementById("game_id").innerHTML = m.game_activity.game_id;
@@ -244,15 +258,15 @@ qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", func
 }, true);
 
 // Game activity/task
-qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
-    if(m.game_activity.game_activity_id == "")
-    {
-        document.getElementById("activity_id").innerHTML = "idle";
-    }else{
-        document.getElementById("activity_id").innerHTML = m.game_activity.game_activity_id;
-    }
-    console.log("update game activity id")
-}, true);
+// qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
+//     if(m.game_activity.game_activity_id == "")
+//     {
+//         document.getElementById("activity_id").innerHTML = "idle";
+//     }else{
+//         document.getElementById("activity_id").innerHTML = m.game_activity.game_activity_id;
+//     }
+//     console.log("update game activity id")
+// }, true);
 
 // Game status
 qtrobot.subscribe(topicEmotionGameStatus, "std_msgs/String", function(m){
