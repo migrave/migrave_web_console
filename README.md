@@ -24,7 +24,7 @@ Repository of web console for the MigrAVE project
 This is how the web console looks like.
 ![screenshot](./assets/img/MigrAVE_web_console.png "opt title")
 
-##
+## Project Structure
 ```
 ├── CMakeLists.txt
 ├── LICENSE
