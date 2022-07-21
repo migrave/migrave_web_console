@@ -23,3 +23,24 @@ Repository of web console for the MigrAVE project
 
 This is how the web console looks like.
 ![screenshot](./assets/img/MigrAVE_web_console.png "opt title")
+
+##
+```
+├── CMakeLists.txt
+├── LICENSE
+├── README.md
+├── package.xml
+├── ros
+│   ├── launch
+│   │   ├── migrave_video_recorder.launch
+│   │   ├── rs_camera.launch
+│   │   └── usb_cam_both.launch
+│   ├── scripts
+│   │   ├── migrave_video_recorder
+│   │   └── migrave_webcam_recorder
+│   └── src
+│       └── video_recorder
+│           ├── __init__.py
+│           └── video_recorder.py
+└── setup.py
+```
