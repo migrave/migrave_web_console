@@ -15,7 +15,7 @@ Repository of web console for the MigrAVE project
     ```sh
     roslaunch migrave_web_console qt_rosbridge_websocket.launch
     ```
-    Currently, rosbridge started automatically in IXP QTrobot. 
+    Currently, rosbridge started automatically in the QTrobot. 
 
 2. Open the `index.html` file with the browser. 
 
