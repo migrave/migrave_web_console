@@ -261,6 +261,16 @@ buttonRestartGame.addEventListener("click", function(){
     }
 }, false);
 
+// stop game
+var buttonStopGame = document.getElementById("stop_game")
+buttonStopGame.addEventListener("click", function(){
+    var gameName = $("#game_name").val();
+    if (gameName != "none") {
+        qtrobot.publish("/migrave_games/stop", "std_msgs/String", {data: gameName});
+        console.log("stopping game " + gameName);
+    }
+}, false);
+
 // Game id
 qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
     document.getElementById("game_id").innerHTML = m.game_activity.game_id;
