@@ -17,6 +17,7 @@
     <script defer src="assets/fontawesome/js/all.js"></script>
 
     <!--ROS scripts -->
+    <script src="assets/js/jquery-3.7.0.min.js"></script>
     <script src="assets/js/roslib.min.js"></script>
     <script src="assets/js/eventemitter2.min.js"></script>
     <script src="assets/js/qtrobot-1.0.min.js"></script>
@@ -116,6 +117,18 @@
                                 <p>Start recording manually</p>
                                 <button id="stop_recording" type="button" class="btn btn-primary">Stop recording</button>
                                 <p>Stop recording manually</p>
+                                <div>
+                                    <select id="game_name">
+                                        <option value="none" selected>Choose learning activity</option>
+                                        <option value="colors">Colors</option>
+                                        <option value="animals">Animals</option>
+                                        <option value="tableware">Tableware</option>
+                                        <option value="teeth_brushing">Teeth brushing</option>
+                                        <option value="hand_washing">Hand washing</option>
+                                    </select>
+                                    <p>Select a game to restart</p>
+                                    <button id="restart_game" type="button" class="btn btn-primary">Restart game</button>
+                                </div>
                             </div>
                             <div class="col">
                                 <p>Adjust head pose</p>

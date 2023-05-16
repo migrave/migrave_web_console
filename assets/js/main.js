@@ -251,6 +251,16 @@ buttonStartRecording.addEventListener("click", function(){
     console.log("start recording");
 }, false);
 
+// restart game
+var buttonRestartGame = document.getElementById("restart_game")
+buttonRestartGame.addEventListener("click", function(){
+    var gameName = $("#game_name").val();
+    if (gameName != "none") {
+        qtrobot.publish("/migrave_games/restart", "std_msgs/String", {data: gameName});
+        console.log("restarting game " + gameName);
+    }
+}, false);
+
 // Game id
 qtrobot.subscribe(topicGamePerformance, "migrave_ros_msgs/GamePerformance", function(m){
     document.getElementById("game_id").innerHTML = m.game_activity.game_id;
