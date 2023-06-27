@@ -2,6 +2,7 @@
 var url = "ws://192.168.100.2:9091";
 url = (url == "") ? 'ws://127.0.0.1:9091' : url;
 var qtrobot = {};
+var robotName = "qtrobot";
 var buttonHome = {};
 var buttonLeft = {};
 var buttonRight = {};
@@ -203,6 +204,16 @@ sliderHeadYaw.addEventListener("input", function()
     }
 )
 
+var buttonSelectRobot = document.getElementById("select_robot");
+buttonSelectRobot.addEventListener("click", function(){
+    robotName = $("#robot_name").val();
+    if (robotName == "qtrobot") {
+        $("#video_color").attr("src", "http://localhost:8080/stream?topic=/camera/color/image_raw");
+    }
+    else if (robotName == "nao") {
+        $("#video_color").attr("src", "http://localhost:8080/stream?topic=/nao_camera/color/image_raw");
+    }
+}, false);
 
 // Home
 buttonHome = document.getElementById("home");
@@ -224,41 +235,50 @@ buttonHome.addEventListener("click", function(){
 //}, true);
 
 // start recording
-var buttonStartRecording = document.getElementById("start_recording")
+var buttonStartRecording = document.getElementById("start_recording");
 buttonStartRecording.addEventListener("click", function(){
     qtrobot.publish("/migrave_data_recording/is_record", "std_msgs/Bool", {data: true});
     console.log("start recording");
 }, false);
 
 // stop recording
-var buttonStopRecording = document.getElementById("stop_recording")
+var buttonStopRecording = document.getElementById("stop_recording");
 buttonStopRecording.addEventListener("click", function(){
     qtrobot.publish("/migrave_data_recording/is_record", "std_msgs/Bool", {data: false});
     console.log("stop recording");
 }, false);
 
 // engagement estimation start
-var buttonStartEngagementEstimation = document.getElementById("start_engagement_estimation")
+var buttonStartEngagementEstimation = document.getElementById("start_engagement_estimation");
 buttonStartEngagementEstimation.addEventListener("click", function(){
-    console.log("starting face feature detection");
-    qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_start"});
+    if (robotName == "qtrobot") {
+        console.log("starting face feature detection for QTrobot");
+        qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_start"});
+        qtrobot.publish("/migrave_perception/nao_openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
+    }
+    else if (robotName == "nao") {
+        console.log("starting face feature detection for NAO");
+        qtrobot.publish("/migrave_perception/nao_openface_ros/event_in", "std_msgs/String", {data: "e_start"});
+        qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
+    }
 
     console.log("starting engagement estimation");
     qtrobot.publish("/migrave_perception/person_state_estimator/event_in", "std_msgs/String", {data: "e_start"});
 }, false);
 
 // engagement estimation stop
-var buttonStopEngagementEstimation = document.getElementById("stop_engagement_estimation")
+var buttonStopEngagementEstimation = document.getElementById("stop_engagement_estimation");
 buttonStopEngagementEstimation.addEventListener("click", function(){
     console.log("stopping face feature detection");
     qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
+    qtrobot.publish("/migrave_perception/nao_openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
 
     console.log("stopping engagement estimation");
     qtrobot.publish("/migrave_perception/person_state_estimator/event_in", "std_msgs/String", {data: "e_stop"});
 }, false);
 
 // restart game
-var buttonRestartGame = document.getElementById("restart_game")
+var buttonRestartGame = document.getElementById("restart_game");
 buttonRestartGame.addEventListener("click", function(){
     var gameName = $("#game_name").val();
     if (gameName != "none") {
@@ -268,7 +288,7 @@ buttonRestartGame.addEventListener("click", function(){
 }, false);
 
 // stop game
-var buttonStopGame = document.getElementById("stop_game")
+var buttonStopGame = document.getElementById("stop_game");
 buttonStopGame.addEventListener("click", function(){
     var gameName = $("#game_name").val();
     if (gameName != "none") {
