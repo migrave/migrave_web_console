@@ -42,60 +42,60 @@
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h4 class="card-title">Participant Info</h4>
+                        <h4 class="card-title">Teilnehmer:in Information</h4>
                         <form>
                             <div class="form-group row card-text">
-                                <label for="inputID" class="col-3 col-form-label">Participant ID</label>
+                                <label for="inputID" class="col-3 col-form-label">Teilnehmer:in ID</label>
                                 <div class="col-9">
-                                    <input type="text" id="inputID" placeholder="Participant ID">
+                                    <input type="text" id="inputID" placeholder="Teilnehmer:in ID">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="inputName" class="col-3 col-form-label">Name</label>
                                 <div class="col-9">
-                                    <input type="text" id="inputName" placeholder="Participant Name">
+                                    <input type="text" id="inputName" placeholder="Teilnehmer:in Name">
                                 </div>
                             </div>
                             
                             <div class="form-group row">
-                                <label for="inputAge" class="col-3 col-form-label">Age</label>
+                                <label for="inputAge" class="col-3 col-form-label">Alter</label>
                                 <div class="col-9">
-                                    <input type="number" id="inputAge" placeholder="Age">
+                                    <input type="number" id="inputAge" placeholder="Alter">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="inputGender" class="col-3 col-form-label">Gender</label>
+                                <label for="inputGender" class="col-3 col-form-label">Geschlecht</label>
                                 <div class="col-9">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="radioGender" id="male" value="male>
-                                        <label class="form-check-label" for="male">Male</label>
+                                        <label class="form-check-label" for="male">M&auml;nnlich</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="radioGender" id="female" value="female">
-                                        <label class="form-check-label" for="female">Female</label>
+                                        <label class="form-check-label" for="female">Weiblich</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="radioGender" id="other" value="other">
-                                        <label class="form-check-label" for="other">Other</label>
+                                        <label class="form-check-label" for="other">Divers</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="inputMotherTongue" class="col-3 col-form-label">Mother tongue</label>
+                                <label for="inputMotherTongue" class="col-3 col-form-label">Muttersprache</label>
                                 <div class="col-9">
                                     <select class="form-select" id="inputMotherTongue">
-                                        <option selected>Choose the mother tongue</option>
-                                        <option value="German">German</option>
-                                        <option value="English">English</option>
-                                        <option value="Other">Other</option>
+                                        <option selected>W&auml;hle die Muttersprache aus</option>
+                                        <option value="German">Deutsch</option>
+                                        <option value="English">Englisch</option>
+                                        <option value="Other">Sonstige</option>
                                       </select>
                                 </div>
                             </div>
                            <div class="form-group row">
-                              <button id="confirm" type="button" class="btn btn-primary">Confirm</button> 
+                              <button id="confirm" type="button" class="btn btn-primary">Best&auml;tige</button>
                            </div> 
 
 
@@ -111,35 +111,40 @@
                         <h4 class="card-title">Control</h4>
                         <div class="row">
                             <div class="col">
+                                <p>Roboterposition zur&uuml;cksetzen</p>
                                 <button id="home" type="button" class="btn btn-primary">Home</button>
-                                <p>Reset robot position</p>
-                                <button id="start_recording" type="button" class="btn btn-primary">Start recording</button>
-                                <p>Start recording manually</p>
-                                <button id="stop_recording" type="button" class="btn btn-primary">Stop recording</button>
-                                <p>Stop recording manually</p>
+
+                                <p>Datenaufnahme umschalten</p>
+                                <button id="start_recording" type="button" class="btn btn-primary">Start</button>
+                                <button id="stop_recording" type="button" class="btn btn-primary">Stopp</button>
+
+                                <p>Engagementbestimmung umschalten</p>
+                                <button id="start_engagement_estimation" type="button" class="btn btn-primary">Start</button>
+                                <button id="stop_engagement_estimation" type="button" class="btn btn-primary">Stopp</button>
+
+                                <p>Lernprogramm verwalten</p>
                                 <div>
                                     <select id="game_name">
-                                        <option value="none" selected>Choose learning activity</option>
-                                        <option value="colors">Colors</option>
-                                        <option value="animals">Animals</option>
-                                        <option value="tableware">Tableware</option>
-                                        <option value="teeth_brushing">Teeth brushing</option>
-                                        <option value="hand_washing">Hand washing</option>
+                                        <option value="none" selected>Lernprogramm ausw&auml;hlen</option>
+                                        <option value="colors">Farben lernen</option>
+                                        <option value="animals">Tiere lernen</option>
+                                        <option value="tableware">Sprachverst&auml;ndnis</option>
+                                        <option value="teeth_brushing">Z&auml;hne putzen</option>
+                                        <option value="hand_washing">H&auml;nde waschen</option>
                                     </select>
-                                    <p>Select an activity</p>
-                                    <button id="restart_game" type="button" class="btn btn-primary">Start activity</button>
-                                    <button id="stop_game" type="button" class="btn btn-primary">Stop activity</button>
+                                    <button id="restart_game" type="button" class="btn btn-primary">Start</button>
+                                    <button id="stop_game" type="button" class="btn btn-primary">Stopp</button>
                                 </div>
                             </div>
                             <div class="col">
-                                <p>Adjust head pose</p>
+                                <p>Kopfposition &auml;ndern</p>
                                 <div>
                                     <label for="head_yaw">
-                                        <strong>Head yaw (left-right) </strong>
+                                        <strong>Kopf yaw (links-rechts) </strong>
                                     </label>
                                     <input type="range" min="-85" max="85" class="custom-range" id="head_yaw">
                                     <label for="head_pitch">
-                                        <strong>Head pitch (up-down) </strong>
+                                        <strong>Kopf pitch (oben-unten) </strong>
                                     </label>
                                     <input type="range" min="-13" max="13" class="custom-range" id="head_pitch">
                                 </div>
@@ -154,12 +159,12 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <h4 class="card-title">Diagnostics</h4>
-                        <p class="card-text">Connection status: <span id="status"></span></p>
-                        <p class="card-text">Head position: <spain id="position"></spain></p>
-                        <p class="card-text">Data recorder: <span id="data_recorder">not recording</span></p>
-                        <p class="card-text">Game ID: <span id="game_id">idle</span></p>
-                        <p class="card-text">Game status: <spain id="game_status">idle</spain></p>
-                        <p class="card-text">Participant ID: <spain id="participant_id">not set</spain></p>
+                        <p class="card-text">Verbindungsstatus: <span id="status"></span></p>
+                        <p class="card-text">Kopfposition: <spain id="position"></spain></p>
+                        <p class="card-text">Datenaufnahme: <span id="data_recorder">Aufnahme nicht aktiviert</span></p>
+                        <p class="card-text">Lernprogramm ID: <span id="game_id">inaktiv</span></p>
+                        <p class="card-text">Lernprogrammstatus: <spain id="game_status">inaktiv</spain></p>
+                        <p class="card-text">Teilnehmer:in ID: <spain id="participant_id">nicht gesetzt</spain></p>
                     </div>
                 </div>
             </div>
@@ -175,13 +180,13 @@
                             <div class="col d-flex justify-content-center">
                                 <figure class="figure">
                                     <img src="http://localhost:8080/stream?topic=/camera/color/image_raw" class="p-1 bg-dark" alt="" id="video_color" />
-                                    <figcaption class="figure-caption text-center">Color camera</figcaption>
+                                    <figcaption class="figure-caption text-center">Farbkamera</figcaption>
                                 </figure>
                             </div>
                             <div class="col d-flex justify-content-center">
                                 <figure class="figure">
                                     <img src="http://localhost:8080/stream?topic=/camera/depth/image_raw" class="p-1 bg-dark" alt="" id="video_depth" />
-                                    <figcaption class="figure-caption text-center">Depth camera</figcaption>
+                                    <figcaption class="figure-caption text-center">Tiefenkamera</figcaption>
                                 </figure>
                             </div>
                             <!-- Hide the OpenFace 
@@ -198,13 +203,13 @@
                             <div class="col d-flex justify-content-center">
                                 <figure class="figure">
                                     <img src="http://localhost:8080/stream?topic=/camera1/usb_cam1/image_raw" class="p-1 bg-dark" alt="" id="video_usb1" />
-                                    <figcaption class="figure-caption text-center">Left camera</figcaption>
+                                    <figcaption class="figure-caption text-center">Linke Kamera</figcaption>
                                 </figure>
                             </div>
                             <div class="col d-flex justify-content-center">
                                 <figure class="figure">
                                     <img src="http://localhost:8080/stream?topic=/camera2/usb_cam2/image_raw" class="p-1 bg-dark" alt="" id="video_usb2" />
-                                    <figcaption class="figure-caption text-center">Right camera</figcaption>
+                                    <figcaption class="figure-caption text-center">Rechte Kamera</figcaption>
                                 </figure>
                             </div>
                         </div>

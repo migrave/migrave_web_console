@@ -237,18 +237,24 @@ buttonStopRecording.addEventListener("click", function(){
     console.log("stop recording");
 }, false);
 
-// facial features detection start
-var buttonStartDetection = document.getElementById("start_detecting")
-buttonStartRecording.addEventListener("click", function(){
+// engagement estimation start
+var buttonStartEngagementEstimation = document.getElementById("start_engagement_estimation")
+buttonStartEngagementEstimation.addEventListener("click", function(){
+    console.log("starting face feature detection");
     qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_start"});
-    console.log("start recording");
+
+    console.log("starting engagement estimation");
+    qtrobot.publish("/migrave_perception/person_state_estimator/event_in", "std_msgs/String", {data: "e_start"});
 }, false);
 
-// facial features detection stop
-var buttonStopDetection = document.getElementById("stop_detecting")
-buttonStartRecording.addEventListener("click", function(){
+// engagement estimation stop
+var buttonStopEngagementEstimation = document.getElementById("stop_engagement_estimation")
+buttonStopEngagementEstimation.addEventListener("click", function(){
+    console.log("stopping face feature detection");
     qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
-    console.log("start recording");
+
+    console.log("stopping engagement estimation");
+    qtrobot.publish("/migrave_perception/person_state_estimator/event_in", "std_msgs/String", {data: "e_stop"});
 }, false);
 
 // restart game
