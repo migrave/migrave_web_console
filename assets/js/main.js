@@ -254,16 +254,22 @@ buttonStartEngagementEstimation.addEventListener("click", function(){
     if (robotName == "qtrobot") {
         console.log("starting face feature detection for QTrobot");
         qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_start"});
+        qtrobot.publish("/migrave_perception/openface_ros_ext_up/event_in", "std_msgs/String", {data: "e_start"});
+        qtrobot.publish("/migrave_perception/openface_ros_ext_down/event_in", "std_msgs/String", {data: "e_start"});
         qtrobot.publish("/migrave_perception/nao_openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
     }
     else if (robotName == "nao") {
         console.log("starting face feature detection for NAO");
         qtrobot.publish("/migrave_perception/nao_openface_ros/event_in", "std_msgs/String", {data: "e_start"});
-        qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
+        qtrobot.publish("/migrave_perception/openface_ros_ext_up/event_in", "std_msgs/String", {data: "e_start"});
+        qtrobot.publish("/migrave_perception/openface_ros_ext_down/event_in", "std_msgs/String", {data: "e_start"});
+	qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
     }
 
     console.log("starting engagement estimation");
     qtrobot.publish("/migrave_perception/person_state_estimator/event_in", "std_msgs/String", {data: "e_start"});
+    qtrobot.publish("/migrave_perception/person_state_estimator_ext_up/event_in", "std_msgs/String", {data: "e_start"});
+    qtrobot.publish("/migrave_perception/person_state_estimator_ext_down/event_in", "std_msgs/String", {data: "e_start"});
 }, false);
 
 // engagement estimation stop
@@ -271,10 +277,14 @@ var buttonStopEngagementEstimation = document.getElementById("stop_engagement_es
 buttonStopEngagementEstimation.addEventListener("click", function(){
     console.log("stopping face feature detection");
     qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
+    qtrobot.publish("/migrave_perception/openface_ros_ext_up/event_in", "std_msgs/String", {data: "e_stop"});
+    qtrobot.publish("/migrave_perception/openface_ros_ext_down/event_in", "std_msgs/String", {data: "e_stop"});
     qtrobot.publish("/migrave_perception/nao_openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
 
     console.log("stopping engagement estimation");
     qtrobot.publish("/migrave_perception/person_state_estimator/event_in", "std_msgs/String", {data: "e_stop"});
+    qtrobot.publish("/migrave_perception/person_state_estimator_ext_up/event_in", "std_msgs/String", {data: "e_stop"});
+    qtrobot.publish("/migrave_perception/person_state_estimator_ext_down/event_in", "std_msgs/String", {data: "e_stop"});
 }, false);
 
 // restart game
