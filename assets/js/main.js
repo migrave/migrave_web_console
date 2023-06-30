@@ -237,7 +237,14 @@ buttonHome.addEventListener("click", function(){
 // start recording
 var buttonStartRecording = document.getElementById("start_recording");
 buttonStartRecording.addEventListener("click", function(){
-    qtrobot.publish("/migrave_data_recording/is_record", "std_msgs/Bool", {data: true});
+    if (robotName == "qtrobot") {
+        qtrobot.publish("/migrave_data_recording/is_record", "std_msgs/Bool", {data: true});
+        qtrobot.publish("/migrave_data_recording_nao/is_record", "std_msgs/Bool", {data: false});
+    }
+    else if (robotName == "nao") {
+        qtrobot.publish("/migrave_data_recording_nao/is_record", "std_msgs/Bool", {data: true});
+        qtrobot.publish("/migrave_data_recording/is_record", "std_msgs/Bool", {data: false});
+    }
     console.log("start recording");
 }, false);
 
@@ -245,6 +252,7 @@ buttonStartRecording.addEventListener("click", function(){
 var buttonStopRecording = document.getElementById("stop_recording");
 buttonStopRecording.addEventListener("click", function(){
     qtrobot.publish("/migrave_data_recording/is_record", "std_msgs/Bool", {data: false});
+    qtrobot.publish("/migrave_data_recording_nao/is_record", "std_msgs/Bool", {data: false});
     console.log("stop recording");
 }, false);
 
