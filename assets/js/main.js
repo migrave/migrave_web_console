@@ -263,11 +263,12 @@ buttonStartEngagementEstimation.addEventListener("click", function(){
         qtrobot.publish("/migrave_perception/nao_openface_ros/event_in", "std_msgs/String", {data: "e_start"});
         qtrobot.publish("/migrave_perception/openface_ros_ext_up/event_in", "std_msgs/String", {data: "e_start"});
         qtrobot.publish("/migrave_perception/openface_ros_ext_down/event_in", "std_msgs/String", {data: "e_start"});
-	qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
+        qtrobot.publish("/migrave_perception/openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
     }
 
     console.log("starting engagement estimation");
-    qtrobot.publish("/migrave_perception/person_state_estimator/event_in", "std_msgs/String", {data: "e_start"});
+    qtrobot.publish("/migrave_perception/person_state_merger/event_in", "std_msgs/String", {data: "e_start"});
+    qtrobot.publish("/migrave_perception/person_state_estimator_rgbd/event_in", "std_msgs/String", {data: "e_start"});
     qtrobot.publish("/migrave_perception/person_state_estimator_ext_up/event_in", "std_msgs/String", {data: "e_start"});
     qtrobot.publish("/migrave_perception/person_state_estimator_ext_down/event_in", "std_msgs/String", {data: "e_start"});
 }, false);
@@ -282,7 +283,8 @@ buttonStopEngagementEstimation.addEventListener("click", function(){
     qtrobot.publish("/migrave_perception/nao_openface_ros/event_in", "std_msgs/String", {data: "e_stop"});
 
     console.log("stopping engagement estimation");
-    qtrobot.publish("/migrave_perception/person_state_estimator/event_in", "std_msgs/String", {data: "e_stop"});
+    qtrobot.publish("/migrave_perception/person_state_merger/event_in", "std_msgs/String", {data: "e_stop"});
+    qtrobot.publish("/migrave_perception/person_state_estimator_rgbd/event_in", "std_msgs/String", {data: "e_stop"});
     qtrobot.publish("/migrave_perception/person_state_estimator_ext_up/event_in", "std_msgs/String", {data: "e_stop"});
     qtrobot.publish("/migrave_perception/person_state_estimator_ext_down/event_in", "std_msgs/String", {data: "e_stop"});
 }, false);
