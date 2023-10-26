@@ -116,7 +116,7 @@ buttonConfirm.addEventListener("click", function()
             };
         console.log("receive participant info")
         qtrobot.publish(topicGamePerformance, "migrave_ros_msgs/GamePerformance", gamePerformance);
-        qtrobot.talk_text("Information received. Let's start!", function(){
+        qtrobot.talk_text("Ich bin bereit. Lass uns anfangen!", function(){
             qtrobot.show_emotion('QT/happy');
         });
     }
@@ -315,6 +315,50 @@ buttonStopGame.addEventListener("click", function(){
         qtrobot.publish("/migrave_games/stop", "std_msgs/String", {data: gameName});
         console.log("stopping game " + gameName);
     }
+}, false);
+
+// enable robot motions during a game
+var enableRobotMotions = document.getElementById("enable_robot_motions");
+enableRobotMotions.addEventListener("click", function(){
+    qtrobot.publish("/migrave/enable_game_robot_motions", "std_msgs/Bool", {data: true});
+    console.log("enabling game motions");
+}, false);
+
+// disable robot motions during a game
+var disableRobotMotions = document.getElementById("disable_robot_motions");
+disableRobotMotions.addEventListener("click", function(){
+    qtrobot.publish("/migrave/enable_game_robot_motions", "std_msgs/Bool", {data: false});
+    console.log("disabling game motions");
+}, false);
+
+// enable robot sounds during a game
+var enableRobotSounds = document.getElementById("enable_robot_sounds");
+enableRobotSounds.addEventListener("click", function(){
+    qtrobot.publish("/migrave/enable_game_sounds", "std_msgs/Bool", {data: true});
+    console.log("enabling game sounds");
+}, false);
+
+// disable robot sounds during a game
+var disableRobotSounds = document.getElementById("disable_robot_sounds");
+disableRobotSounds.addEventListener("click", function(){
+    qtrobot.publish("/migrave/enable_game_sounds", "std_msgs/Bool", {data: false});
+    console.log("disabling game sounds");
+}, false);
+
+// select token
+var buttonSelectToken = document.getElementById("set_token");
+buttonSelectToken.addEventListener("click", function(){
+    var tokenName = $("#token_name").val();
+    qtrobot.publish("/migrave/reward_token", "std_msgs/String", {data: tokenName});
+    console.log("setting token " + tokenName);
+}, false);
+
+// select praise type
+var buttonSelectPraiseType = document.getElementById("set_praise_type");
+buttonSelectPraiseType.addEventListener("click", function(){
+    var praiseType = $("#praise_type").val();
+    qtrobot.publish("/migrave/praise_type", "std_msgs/String", {data: praiseType});
+    console.log("setting praise type " + praiseType);
 }, false);
 
 // Game id

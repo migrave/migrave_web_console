@@ -152,6 +152,21 @@
                                         <button id="stop_game" type="button" class="btn btn-primary">Stopp</button>
                                     </p>
                                 </div>
+
+                                <div>
+                                    <p>
+                                        Token verwalten<br />
+                                        <select id="token_name">
+                                            <option value="token_star">Stern</option>
+                                            <option value="token_robot">Roboter</option>
+                                            <option value="token_smiley">Smiley</option>
+                                            <option value="token_truck">Fahrzeug</option>
+                                            <option value="token_cat">Katze</option>
+                                            <option value="token_flower">Blume</option>
+                                        </select><br />
+                                        <button id="set_token" type="button" class="btn btn-primary">Setzen</button>
+                                    </p>
+                                </div>
                             </div>
                             <div class="col">
                                 <p>Kopfposition &auml;ndern</p>
@@ -164,6 +179,34 @@
                                         <strong>Kopf pitch (oben-unten) </strong>
                                     </label>
                                     <input type="range" min="-13" max="13" class="custom-range" id="head_pitch">
+                                </div>
+
+                                <div>
+                                    <p>
+                                        Roboterbewegungen w&auml;hrend des Lernprogramms umschalten<br />
+                                        <button id="enable_robot_motions" type="button" class="btn btn-primary">Aktivieren</button>
+                                        <button id="disable_robot_motions" type="button" class="btn btn-primary">Deaktivieren</button>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p>
+                                        Ger&auml;usche w&auml;hrend des Lernprogramms umschalten<br />
+                                        <button id="enable_robot_sounds" type="button" class="btn btn-primary">Aktivieren</button>
+                                        <button id="disable_robot_sounds" type="button" class="btn btn-primary">Deaktivieren</button>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p>
+                                        Lob nach einem Lernschritt ausw&auml;hlen<br />
+                                        <select id="praise_type">
+                                            <option value="fireworks">Feuerwerk</option>
+                                            <option value="motion">Roboterbewegung</option>
+                                            <option value="fireworks_and_motion">Feuerwerk und Roboterbewegung</option>
+                                        </select><br />
+                                        <button id="set_praise_type" type="button" class="btn btn-primary">Setzen</button>
+                                    </p>
                                 </div>
                             </div>
                         </div>
